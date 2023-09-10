@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom"
 import './App.css'
 import Login from "./pages/Login.tsx"
 import CreateAccount from './pages/CreateAccount.tsx'
-import Home from './pages/Home.tsx'
+import Home from './components/Home.tsx'
 
 function App() {
 
