@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function LoginForm() {
   return (
     <section>
-      <div className="relative items-center w-full px-5 py-12 mx-auto md:px-12 lg:px-20 max-w-7xl">
+      <div className="relative items-center w-full px-5 py-40 mx-auto md:px-12 lg:px-20 max-w-7xl">
         <div className="w-full max-w-md mx-auto md:max-w-sm md:px-0 md:w-96 sm:px-4">
           <div className="flex flex-col">
             <div>
@@ -12,8 +12,6 @@ function LoginForm() {
             </div>
           </div>
           <form>
-            <input autoComplete="false" name="hidden" style={{ display: 'none' }} />
-            <input name="_redirect" type="hidden" value="https://jamstacker.studio/thankyou" />
             <div className="mt-4 space-y-6">
               <div className="col-span-full">
                 <label className="block mb-3 text-sm font-medium text-gray-600" htmlFor="password">
@@ -47,10 +45,10 @@ function LoginForm() {
               </div>
               <div className="col-span-full">
               <Link to="/create"
-                  className="items-center justify-center w-full px-3 py-2.5 text-center text-black duration-200 hover:text-slate-400 focus:outline-none focus-visible:outline-black text-sm focus-visible:ring-black"
+                  className="items-center justify-center w-full px-3 text-center text-black duration-200 hover:text-slate-400 "
                   type="submit"
                 >
-                  Create new account
+                  Register for a new Account
                 </Link>
               </div>
             </div>
