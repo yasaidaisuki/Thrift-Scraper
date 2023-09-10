@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function LoginForm() {
+function CreateForm() {
   return (
     <section>
       <div className="relative items-center w-full px-5 py-12 mx-auto md:px-12 lg:px-20 max-w-7xl">
         <div className="w-full max-w-md mx-auto md:max-w-sm md:px-0 md:w-96 sm:px-4">
           <div className="flex flex-col">
             <div>
-              <h2 className="text-4xl text-black text-center">SIGN IN</h2>
+              <h2 className="text-4xl text-black text-center">CREATE ACCOUNT</h2>
             </div>
           </div>
           <form>
@@ -42,15 +42,15 @@ function LoginForm() {
                   className="items-center justify-center w-full px-6 py-2.5 text-center text-white duration-200 bg-black border-2 border-black rounded-full nline-flex hover:bg-transparent hover:border-black hover:text-black focus:outline-none focus-visible:outline-black text-sm focus-visible:ring-black"
                   type="submit"
                 >
-                  Sign in
+                  Create New Account
                 </button>
               </div>
               <div className="col-span-full">
-              <Link to="/create"
+              <Link to="/"
                   className="items-center justify-center w-full px-3 py-2.5 text-center text-black duration-200 hover:text-slate-400 focus:outline-none focus-visible:outline-black text-sm focus-visible:ring-black"
                   type="submit"
                 >
-                  Create new account
+                  Main Page
                 </Link>
               </div>
             </div>
@@ -61,4 +61,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default CreateForm;
