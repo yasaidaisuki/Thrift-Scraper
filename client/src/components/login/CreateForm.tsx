@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import axios from "axios";
 
 function CreateForm() {
 
   const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [pass, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
+  async function handleSubmit(e: {preventDefault: () => void;}) {
+    e.preventDefault(); 
   }
 
   return (
@@ -42,7 +42,7 @@ function CreateForm() {
                 </label>
                 <input
                   value={pass}
-                  onChange={(e) => setPass(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   className="block w-full px-6 py-3 text-black bg-white border border-gray-200 rounded-full appearance-none placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
                   placeholder="******"

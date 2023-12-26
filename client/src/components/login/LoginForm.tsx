@@ -1,7 +1,17 @@
 import React from 'react';
+import { useState } from "react";
+import axios from "axios";
 import { Link } from 'react-router-dom';
 
 function LoginForm() {
+
+  const [email, setEmail] = useState("");
+  const [pass, setPassword] = useState("");
+
+  async function handleSubmit(e: {preventDefault: () => void;}) {
+    e.preventDefault(); 
+  }
+
   return (
     <section>
       <div className="relative items-center w-full px-5 py-40 mx-auto md:px-12 lg:px-20 max-w-7xl">

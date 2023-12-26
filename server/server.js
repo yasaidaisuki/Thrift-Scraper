@@ -1,11 +1,22 @@
-import express from "express"
-import cors from "cors"
+const express = require('express');
+const dotenv = require('dotenv').config()
+const cors = require('cors');
+const {mongoose} = require('mongoose')
+
+app.use(cors());
+
+// connecting to Mongo
+mongoose.connect(process.env.MONGODB_URI)
+.then(()=> console.log("database connected"))
+.catch((error) => {
+    console.log("database not connected", error)
+})
+
+// Routes
+
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, ()=> console.log(`server is running on port ${PORT}`));
 
-app.use("*", (req,res)=> res.status(404).json({error: "404 not found"}));
-
-export default app 
