@@ -1,38 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import axios from 'axios'
 
 function LoginForm() {
-
-  const [email,setEmail]=useState('')
-  const [password,setPass]=useState('')
-
-  async function submit(e){
-    e.preventDefault();
-
-    try{
-      await axios.post("http://localhost:5173/", {
-        email,password
-      })
-      .then(res=> {
-        if(res.data == "exist"){
-          history("/home", {state:{id:email}})
-        }
-        else if (res.data == "notexist"){
-          alert("User does not exist")
-        }
-      })
-      .catch(e=> {
-        alert("incorrect login")
-        console.log(e)
-      })
-    }
-    catch(e) {
-      console.log(e)
-    }
-  }
-
   return (
     <section>
       <div className="relative items-center w-full px-5 py-40 mx-auto md:px-12 lg:px-20 max-w-7xl">
@@ -49,8 +18,6 @@ function LoginForm() {
                   Email
                 </label>
                 <input
-                  type="email"
-                  onChange={(e)=> {setEmail(e.target.value)}}
                   className="block w-full px-6 py-3 text-black bg-white border border-gray-200 rounded-full appearance-none placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
                   placeholder="user@email.com"
                   autoComplete="off"
@@ -61,11 +28,10 @@ function LoginForm() {
                   Password
                 </label>
                 <input
-                  type="password"
-                  onChange={(e)=> {setPass(e.target.value)}}
                   className="block w-full px-6 py-3 text-black bg-white border border-gray-200 rounded-full appearance-none placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
                   placeholder="******"
                   autoComplete="off"
+                  type="password"
                 />
               </div>
 

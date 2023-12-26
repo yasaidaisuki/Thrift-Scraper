@@ -4,9 +4,6 @@ import './App.css'
 import Login from "./pages/Login.tsx"
 import CreateAccount from './pages/CreateAccount.tsx'
 import Home from './components/Home.tsx'
-import axios from 'axios';
-
-axios.defaults.baseURL = 'http://localhost:5173';
 
 function App() {
 
