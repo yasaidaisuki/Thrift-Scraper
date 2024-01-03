@@ -1,21 +1,20 @@
 const express = require('express');
-const dotenv = require('dotenv').config()
+const app = express();
 const cors = require('cors');
-const {mongoose} = require('mongoose')
+const pool = require("./db")
 
 app.use(cors());
+app.use(express.json());
 
-// connecting to Mongo
-mongoose.connect(process.env.MONGODB_URI)
-.then(()=> console.log("database connected"))
-.catch((error) => {
-    console.log("database not connected", error)
+// signup
+//const registerRoute = require("./routes/registerUsers")
+app.get("/registerusers", (req, res) => {
+    res.status(404).json({
+        status: "sucess",
+        email: "123@gmail.com"
+    });
 })
 
-// Routes
-
-
-const app = express();
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, ()=> console.log(`server is running on port ${PORT}`));
