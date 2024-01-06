@@ -3,17 +3,14 @@ const app = express();
 const cors = require('cors');
 const pool = require("./db")
 
+
+// middlleware
 app.use(cors());
 app.use(express.json());
 
-// signup
-//const registerRoute = require("./routes/registerUsers")
-app.get("/registerusers", (req, res) => {
-    res.status(404).json({
-        status: "sucess",
-        email: "123@gmail.com"
-    });
-})
+// routes // 
+app.use("/auth", require("./routes/registerUsers"));
+
 
 
 const PORT = process.env.PORT || 3001;
