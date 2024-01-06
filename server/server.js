@@ -1,18 +1,16 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const cors = require('cors');
-const pool = require("./db")
+const cors = require("cors");
 
+//middleware
 
-// middlleware
 app.use(cors());
 app.use(express.json());
 
-// routes // 
-app.use("/auth", require("./routes/registerUsers"));
+//routes
 
+app.use("/authentication", require("./routes/jwtAuth"));
 
-
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, ()=> console.log(`server is running on port ${PORT}`));
-
+app.listen(5000, () => {
+  console.log(`Server is starting on port 5000`);
+});
