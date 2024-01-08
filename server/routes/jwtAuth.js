@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const pool = require("../db");
+const bcrypt = require("bcrypt");
+const jwtGenerator = require("../utils/jwtGenerator");
+
 
 router.post("/register", async (req,res) => {
     try{
@@ -11,10 +14,22 @@ router.post("/register", async (req,res) => {
 
         // user already exists
         if (user.rows.length !==0 ) {
-            return res.status(401);
+            return res.status(401).send("User already exists");
         }
 
-        res.json(user.rows);
+        // hashing password
+        const saltRounds = 10;
+
+        // await b/c it takes time for hashing // 
+
+        const hashed_password = await bcrypt.hash(password,saltRounds);
+
+        // inserting into db
+        const newUser = await pool.query("INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *", [email, hashed_password]);
+
+        const token = jwtGenerator(newUser.rows[0].user_id);
+
+        res.json({token});
 
 
     } catch (err) {
