@@ -6,10 +6,21 @@ import axios from "axios";
 function CreateForm() {
 
   const [email, setEmail] = useState("");
-  const [pass, setPassword] = useState("");
+  const [password, setPassword] = useState("");
 
   async function handleSubmit(e: {preventDefault: () => void;}) {
     e.preventDefault(); 
+    if(!email)
+      console.error("You need a email")
+    else if (!password)
+      console.error("You need a password")
+    else{
+        const response = await axios.post('http://localhost:5000/createAccount', { "email" : email, "password" :password })
+        .catch((error) =>{
+          console.error(error)
+        })
+        console.log(response)
+    }
   }
 
   return (
@@ -41,7 +52,7 @@ function CreateForm() {
                   Password
                 </label>
                 <input
-                  value={pass}
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   className="block w-full px-6 py-3 text-black bg-white border border-gray-200 rounded-full appearance-none placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"

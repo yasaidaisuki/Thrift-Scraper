@@ -4,18 +4,15 @@ const bcrypt = require("bcrypt");
 const jwtGenerator = require("../utils/jwtGenerator");
 
 
-router.post("/register", async (req,res) => {
+router.post("/", async (req,res) => {
     try{
         
         const { email, password } = req.body;
-
+        console.log(email)
         const user = await pool.query("SELECT * FROM users WHERE email = $1",
         [email]);
 
         // user already exists
-        if (user.rows.length !==0 ) {
-            return res.status(401).send("User already exists");
-        }
 
         // hashing password
         const saltRounds = 10;

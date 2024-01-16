@@ -1,15 +1,30 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 
 function LoginForm() {
-
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [pass, setPassword] = useState("");
+  const [password, setPassword] = useState("");
 
   async function handleSubmit(e: {preventDefault: () => void;}) {
     e.preventDefault(); 
+    if(!email)
+      console.error("You need a email")
+    else if (!password)
+      console.error("You need a password")
+    else{
+        const response = await axios.post('http://localhost:5000/login', { "email" : email, "password" :password }).catch((error) =>{ //go to database and see response
+          console.error(error)
+        })
+        //if database manages to find matching data
+        if(response){
+          window.location.href=(`/home?parameter=${email}`)
+        }
+          // result == true
+    }
   }
 
   return (
@@ -21,13 +36,15 @@ function LoginForm() {
               <h2 className="text-4xl text-black text-center">SIGN IN</h2>
             </div>
           </div>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mt-4 space-y-6">
               <div className="col-span-full">
                 <label className="block mb-3 text-sm font-medium text-gray-600" htmlFor="password">
                   Email
                 </label>
                 <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="block w-full px-6 py-3 text-black bg-white border border-gray-200 rounded-full appearance-none placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
                   placeholder="user@email.com"
                   autoComplete="off"
@@ -38,6 +55,8 @@ function LoginForm() {
                   Password
                 </label>
                 <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="block w-full px-6 py-3 text-black bg-white border border-gray-200 rounded-full appearance-none placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
                   placeholder="******"
                   autoComplete="off"
