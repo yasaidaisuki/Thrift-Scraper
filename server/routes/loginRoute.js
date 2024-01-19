@@ -3,6 +3,9 @@ const pool = require("../db");
 const bcrypt = require("bcrypt");
 const jwtGenerator = require("../utils/jwtGenerator");
 
+function validEmail(userEmail) {
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
+}
 
 router.post("/", async (req,res) => {
     try{
@@ -12,6 +15,12 @@ router.post("/", async (req,res) => {
 
         const user = await pool.query("SELECT password FROM users WHERE email = $1",
         [email]);
+
+        if (![email, password].every(Boolean)) {
+            return res.json("Missing Credentials");
+          } else if (!validEmail(email)) {
+            return res.json("Invalid Email");
+          }
 
         // user dne
         if (user.rows.length === 0 ) {

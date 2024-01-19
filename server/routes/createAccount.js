@@ -3,14 +3,24 @@ const pool = require("../db");
 const bcrypt = require("bcrypt");
 const jwtGenerator = require("../utils/jwtGenerator");
 
+function validEmail(userEmail) {
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
+}
 
 router.post("/", async (req,res) => {
+    
     try{
-        
+
         const { email, password } = req.body;
         console.log(email)
         const user = await pool.query("SELECT * FROM users WHERE email = $1",
         [email]);
+
+        if (![email, password].every(Boolean)) {
+            return res.status(401).json("Missing Credentials");
+        } else if (!validEmail(email)) {
+            return res.status(401).json("Invalid Email");
+        }
 
         // user already exists
 
