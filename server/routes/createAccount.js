@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const pool = require("../db");
 const bcrypt = require("bcrypt");
-const jwtGenerator = require("../utils/jwtGenerator");
+const jwtGenerator = require("../utils/jwtGenerator"); 
 
 function validEmail(userEmail) {
     return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
@@ -36,7 +36,7 @@ router.post("/", async (req,res) => {
 
         const token = jwtGenerator(newUser.rows[0].user_id);
 
-        res.json({token});
+        return res.json({ token });
 
 
     } catch (err) {
