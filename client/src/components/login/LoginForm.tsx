@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 
-function LoginForm() {
+const LoginForm =({setAuth}) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,6 +21,7 @@ function LoginForm() {
         })
         //if database manages to find matching data
         if(response){
+          setAuth(true);
           window.location.href=(`/home?parameter=${email}`)
         }
           // result == true

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Modal from './Modal';
 
-const Home = () => {
+const Dashboard = ({setAuth}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setModal] = useState(false);
 
@@ -46,4 +46,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Dashboard;
