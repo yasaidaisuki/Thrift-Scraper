@@ -4,27 +4,32 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 
-const LoginForm =({setAuth}) => {
+const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function handleSubmit(e: {preventDefault: () => void;}) {
-    e.preventDefault(); 
-    if(!email)
-      console.error("You need a email")
-    else if (!password)
-      console.error("You need a password")
-    else{
-        const response = await axios.post('http://localhost:5000/login', { "email" : email, "password" :password }).catch((error) =>{ //go to database and see response
-          console.error(error)
-        })
-        //if database manages to find matching data
-        if(response){
-          setAuth(true);
-          window.location.href=(`/home?parameter=${email}`)
-        }
-          // result == true
+  async function handleSubmit(e: { preventDefault: () => void; }) {
+    e.preventDefault();
+    try {
+      if (!email)
+        console.error("You need a email")
+      else if (!password)
+        console.error("You need a password")
+      else {
+        const response = await axios.post('http://localhost:5000/login', { "email": email, "password": password });  //go to database and see response
+        
+        const { token } = response.data;
+
+        // Store the token in localStorage
+        localStorage.setItem('token', token);
+
+        // Redirect to home page
+        navigate('/home');
+      
+      }
+    } catch (error) {
+      console.error("login error:", error);
     }
   }
 
@@ -74,7 +79,7 @@ const LoginForm =({setAuth}) => {
                 </button>
               </div>
               <div className="col-span-full">
-              <Link to="/create"
+                <Link to="/create"
                   className="items-center justify-center w-full px-3 text-center text-black duration-200 hover:text-slate-400 "
                   type="submit"
                 >
