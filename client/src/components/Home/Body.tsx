@@ -55,7 +55,7 @@ export default function Body() {
           />
         </div>
       </div>
-      {/* <div className="flex flex-wrap justify-center">
+      <div className="flex flex-wrap justify-center">
         {dataSet[0] ? (
           <div className="grid grid-cols-2 gap-4">
             {dataSet.slice(0, 6).map((itemData, index) => (
@@ -65,7 +65,7 @@ export default function Body() {
             ))}
           </div>
         ) : null}
-      </div> */}
+      </div>
     </>
   )
 }

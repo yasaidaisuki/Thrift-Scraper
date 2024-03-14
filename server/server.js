@@ -14,6 +14,9 @@ app.use("/createAccount", require("./routes/createAccount"));
 app.use("/login", require("./routes/loginRoute"));
 app.use("/verify", require("./routes/authRoute"));
 app.use("/dashboard", require("./routes/dashboard"));
+// get items
+app.use("/getFemaleItems", require("./routes/getFemaleItems"));
+app.use("/getMaleItems", require("./routes/getMaleItems"));
 
 
 app.listen(5000, () => {
