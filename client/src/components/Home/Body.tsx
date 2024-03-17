@@ -59,11 +59,11 @@ export default function Body() {
         {dataSet[0] ? (
           <div className="grid grid-cols-3 justify-items-center gap-9 py-8  mx-auto max-w-7xl">
             {dataSet.slice(0, 6).map((itemData, index) => (
-              <div key={index} className=" p-2 mb-4">
-                <img src={itemData.img} className="group/edit object-contain h-96 w-56 hover:blur duration-[350ms]" alt="Product" />
-                <span className="group-hover/edit:text-gray-700 inset-0 flex items-center justify-center">
-                www
-                </span>
+              <div key={index} className="shadow-md rounded relative p-2 mb-4">
+                  <img src={itemData.img} className="object-contain h-96 w-56" alt="Product" />
+                <div className="opacity-0 hover:opacity-100 bg-zinc-50/[.4] duration-[450ms] backdrop-blur-[10px] backdrop-opacity-100 absolute inset-0 z-10 flex justify-center items-center text-slate-950 font-semibold">
+                  <p>hehe</p>
+                </div>
               </div>
             ))}
           </div>
