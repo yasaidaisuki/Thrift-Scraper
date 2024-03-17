@@ -57,10 +57,13 @@ export default function Body() {
       </div>
       <div className="flex flex-wrap justify-center">
         {dataSet[0] ? (
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 justify-items-center gap-9 py-8  mx-auto max-w-7xl">
             {dataSet.slice(0, 6).map((itemData, index) => (
-              <div key={index} className="border border-gray-300 rounded-lg p-2 mb-4">
-                <img src={itemData.img} className="scale-50 mb-4" alt="Product" />
+              <div key={index} className=" p-2 mb-4">
+                <img src={itemData.img} className="group/edit object-contain h-96 w-56 hover:blur duration-[350ms]" alt="Product" />
+                <span className="group-hover/edit:text-gray-700 inset-0 flex items-center justify-center">
+                www
+                </span>
               </div>
             ))}
           </div>
