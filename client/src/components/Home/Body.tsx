@@ -8,6 +8,10 @@ export default function Body() {
   const [gender, setGender] = useState("")
   const [dataSet, setData] = useState([])
 
+  async function viewItem(brand, name, id) {
+    window.open(`https://www.ssense.com/en-ca/product/${brand}/${name}/${id}`, '_blank');
+  }
+
   async function getMaleItems() {
     await axios.get('http://localhost:5000/getMaleItems')
       .then((response) => {
@@ -60,9 +64,18 @@ export default function Body() {
           <div className="grid grid-cols-3 justify-items-center gap-9 py-8  mx-auto max-w-7xl">
             {dataSet.slice(0, 6).map((itemData, index) => (
               <div key={index} className="shadow-md rounded relative p-2 mb-4">
-                  <img src={itemData.img} className="object-contain h-96 w-56" alt="Product" />
-                <div className="opacity-0 hover:opacity-100 bg-zinc-50/[.4] duration-[450ms] backdrop-blur-[10px] backdrop-opacity-100 absolute inset-0 z-10 flex justify-center items-center text-slate-950 font-semibold">
-                  <p>hehe</p>
+                <img src={itemData.img} className="object-contain h-96 w-56" alt="Product" />
+                <div className="truncate text-ellipsis opacity-0 hover:opacity-100 bg-zinc-50/[.4] duration-[450ms] backdrop-blur-[10px] backdrop-opacity-100 absolute inset-0 flex flex-col justify-center items-center text-slate-950 font-semibold">
+                  <span>{itemData.name}</span>
+                  <span>${itemData.price}</span>
+                  <span>{itemData.brand}</span>
+                  <br />
+                  <button type="button" onClick={() => viewItem(itemData.brand, itemData.name, itemData.id)} className="text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                    View
+                  </button>
+                  <button type="button" className="text-white bg-gray-800 hover:bg-gray-900  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                    Favorite
+                  </button>
                 </div>
               </div>
             ))}
