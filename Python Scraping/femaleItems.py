@@ -45,13 +45,19 @@ headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit
 
 script = '''
         CREATE TABLE IF NOT EXISTS femaleItems (
-            id          INT PRIMARY KEY,
+            product_id SERIAL PRIMARY KEY,
             brand       VARCHAR(255),
             name        VARCHAR(255),
             price       INT,
             img         VARCHAR(255),
             seller      VARCHAR(2)
         );
+
+        CREATE TABLE favorite_female (
+            user_id uuid REFERENCES users(user_id),
+            product_id INT REFERENCES femaleItems(product_id),
+            PRIMARY KEY (user_id, product_id)
+        );         
         '''
 cur.execute(script)
 
@@ -62,7 +68,7 @@ cur.execute('''
 script  = '''
 INSERT INTO femaleItems
 VALUES (%s,%s,%s,%s,%s,%s)
-ON CONFLICT (id) DO NOTHING
+ON CONFLICT (product_id) DO NOTHING
 '''
 
 '''patch 1.1 : we are no longer sexist. Women clothing will be included.'''
