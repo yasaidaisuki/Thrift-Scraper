@@ -8,6 +8,26 @@ export default function Body() {
   const [gender, setGender] = useState("")
   const [dataSet, setData] = useState([])
 
+  async function addFavourite(userId : string, productId : number){
+  }
+
+  async function search(e : {preventDefault: () => void;}){
+    e.preventDefault();
+    console.log(item)
+    console.log()
+    await axios.post('http://localhost:5000/searchItems',{"item" : item, "gender" : gender})
+    .then((response) => {
+      console.log(response);
+      const itemData = (response.data).rows
+      setData(itemData)
+      
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+    
+  }
+
   async function viewItem(brand: string, name: string, id: number, seller: string) {
     if(seller == "ss")
       window.open(`https://www.ssense.com/en-ca/${gender}/product/${brand}/${name}/${id}`, '_blank');
@@ -54,6 +74,7 @@ export default function Body() {
           >WOMEN</div>
         </div>
         <div className="ml-48 flex centered-item">
+          <form onSubmit={search}>
           <input
             value={item}
             onChange={(e) => setItem(e.target.value)}
@@ -62,6 +83,10 @@ export default function Body() {
             className="block l-12 w-64 p-2 text-black bg-white border border-gray-500 rounded-lg appearance-none placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
             autoComplete="off"
           />
+          <button
+            type="submit"
+          >Search</button>
+          </form>
         </div>
       </div>
       <div className="flex flex-wrap justify-center">
@@ -78,7 +103,8 @@ export default function Body() {
                   <button type="button" onClick={() => viewItem(itemData.brand, itemData.name, itemData.product_id, itemData.seller)} className="text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                     View
                   </button>
-                  <button type="button" className="text-white bg-gray-800 hover:bg-gray-900  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                  <button type="button" onClick={()=>addFavourite("lol",item.id)}
+                  className="text-white bg-gray-800 hover:bg-gray-900  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                     Favorite
                   </button>
                 </div>
