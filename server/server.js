@@ -17,7 +17,9 @@ app.use("/dashboard", require("./routes/dashboard"));
 // get items
 app.use("/getFemaleItems", require("./routes/getFemaleItems"));
 app.use("/getMaleItems", require("./routes/getMaleItems"));
-
+// fav items
+app.use("/add_fav_male", require("./routes/maleFavRoute"));
+app.use("/add_fav_female", require("./routes/femaleFavRoute"));
 
 app.listen(5000, () => {
   console.log(`Server is starting on port 5000`);
