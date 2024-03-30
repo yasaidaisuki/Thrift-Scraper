@@ -104,8 +104,7 @@ const Body = ({user_id}) => {
                   <button type="button" onClick={() => viewItem(itemData.brand, itemData.name, itemData.product_id, itemData.seller)} className="text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                     View
                   </button>
-                  <button type="button" onClick={(e)=>addFavourite(e,user_id,item.id)}
-                  className="text-white bg-gray-800 hover:bg-gray-900  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                  <button type="button" className="text-white bg-gray-800 hover:bg-gray-900  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                     Favorite
                   </button>
                 </div>

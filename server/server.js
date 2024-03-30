@@ -20,7 +20,7 @@ app.use("/getMaleItems", require("./routes/getMaleItems"));
 // fav items
 app.use("/add_fav_male", require("./routes/maleFavRoute"));
 app.use("/add_fav_female", require("./routes/femaleFavRoute"));
-//ssearch bar
+//search items
 app.use("/searchItems", require("./routes/searchItems"));
 
 app.listen(5000, () => {
