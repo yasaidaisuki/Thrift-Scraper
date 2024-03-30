@@ -11,9 +11,8 @@ router.post("/", async (req,res) => {
     try{
        
         const { email, password } = req.body;
-        console.log(email)
 
-        const user = await pool.query("SELECT password FROM users WHERE email = $1",
+        const user = await pool.query("SELECT user_id, password FROM users WHERE email = $1",
         [email]);
 
         if (![email, password].every(Boolean)) {
@@ -32,9 +31,11 @@ router.post("/", async (req,res) => {
         if (!validPassword) {
             return res.status(401).json("Invalid Credential");
         }
-        const token = jwtGenerator(user.rows[0].user_id);
 
-        return res.json ({token});
+        const user_id = user.rows[0].user_id;
+
+        const token = jwtGenerator(user.rows[0].user_id);
+        return res.json ({token, user_id, email});
 
 
     } catch (err) {

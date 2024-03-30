@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 
-const LoginForm = () => {
+const LoginForm = ({setUser}) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,10 +19,11 @@ const LoginForm = () => {
       else {
         const response = await axios.post('http://localhost:5000/login', { "email": email, "password": password });  //go to database and see response
         
-        const { token } = response.data;
+        const { token, user_id } = response.data;
 
         // Store the token in localStorage
         localStorage.setItem('token', token);
+        setUser(user_id,email);
 
         // Redirect to home page
         navigate('/home');

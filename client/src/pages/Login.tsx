@@ -5,10 +5,10 @@ import axios from "axios";
 import { Link } from 'react-router-dom';
 import LoginForm from '../components/login/LoginForm'
 
-const Login = () => {
+const Login = ({setUser}) => {
   return (
     <>
-        <LoginForm />
+        <LoginForm setUser={setUser}/>
     </>
   )
 }
