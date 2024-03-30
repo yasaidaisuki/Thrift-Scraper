@@ -5,8 +5,8 @@ router.post("/", async(req,res)=>{
     const {item, gender} = req.body;
     try{
 
-        const userResult = (gender === "men") ? await pool.query('SELECT * FROM maleitems WHERE LOWER(NAME) LIKE $1',["%"+(item).toLowerCase()+"%"]) : 
-        await pool.query('SELECT * FROM femaleitems WHERE NAME LIKE $1',["%"+item+"%"]);
+        const userResult = (gender === "men") ? await pool.query('SELECT * FROM maleitems WHERE LOWER(NAME) LIKE $1 OR LOWER(BRAND) LIKE $1',["%"+(item).toLowerCase()+"%"]) : 
+                                                await pool.query('SELECT * FROM femaleitems WHERE LOWER(NAME) LIKE $1 OR LOWER(BRAND) LIKE $1',["%"+(item).toLowerCase()+"%"]);
 
         return res.json(userResult);
     } catch(err){
