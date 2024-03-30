@@ -3,34 +3,54 @@ import axios from 'axios'
 import { json } from "react-router-dom";
 
 
-const Body = ({user_id}) => {
+const Body = ({ user_id }) => {
   const [item, setItem] = useState("")
   const [gender, setGender] = useState("")
   const [dataSet, setData] = useState([])
 
-  async function addFavourite(e : {preventDefault: () => void;}, userId : string, productId : number){
+  async function addFavorite(e: { preventDefault: () => void; }, userId: string, productId: number) {
     e.preventDefault();
+
+    if (gender === "men") {
+      await axios.post('http://localhost:5000/add_fav_male', { "user_id": userId, "product_id": productId })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+    else {
+      await axios.post('http://localhost:5000/add_fav_female', { "user_id": userId, "product_id": productId })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+
   }
 
-  async function search(e : {preventDefault: () => void;}){
+  async function search(e: { preventDefault: () => void; }) {
     e.preventDefault();
     console.log(item)
     console.log()
-    await axios.post('http://localhost:5000/searchItems',{"item" : item, "gender" : gender})
-    .then((response) => {
-      console.log(response);
-      const itemData = (response.data).rows
-      setData(itemData)
-      
-    })
-    .catch((error)=>{
-      console.log(error)
-    })
-    
+    await axios.post('http://localhost:5000/searchItems', { "item": item, "gender": gender })
+      .then((response) => {
+        console.log(response);
+        const itemData = (response.data).rows
+        setData(itemData)
+
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
   }
 
   async function viewItem(brand: string, name: string, id: number, seller: string) {
-    if(seller == "ss")
+    if (seller == "ss")
       window.open(`https://www.ssense.com/en-ca/${gender}/product/${brand}/${name}/${id}`, '_blank');
     else
       window.open(`https://www.farfetch.com/ca/shopping/${gender}/${brand} ${name} ${id}.aspx`);
@@ -76,17 +96,17 @@ const Body = ({user_id}) => {
         </div>
         <div className="ml-48 flex centered-item">
           <form onSubmit={search}>
-          <input
-            value={item}
-            onChange={(e) => setItem(e.target.value)}
-            type="Item"
-            placeholder="Search"
-            className="block l-12 w-64 p-2 text-black bg-white border border-gray-500 rounded-lg appearance-none placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
-            autoComplete="off"
-          />
-          <button
-            type="submit"
-          >Search</button>
+            <input
+              value={item}
+              onChange={(e) => setItem(e.target.value)}
+              type="Item"
+              placeholder="Search"
+              className="block l-12 w-64 p-2 text-black bg-white border border-gray-500 rounded-lg appearance-none placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
+              autoComplete="off"
+            />
+            <button
+              type="submit"
+            >Search</button>
           </form>
         </div>
       </div>
@@ -104,7 +124,7 @@ const Body = ({user_id}) => {
                   <button type="button" onClick={() => viewItem(itemData.brand, itemData.name, itemData.product_id, itemData.seller)} className="text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                     View
                   </button>
-                  <button type="button" className="text-white bg-gray-800 hover:bg-gray-900  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                  <button type="button" onClick={(e) => addFavorite(e, user_id,itemData.product_id)} className="text-white bg-gray-800 hover:bg-gray-900  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                     Favorite
                   </button>
                 </div>
