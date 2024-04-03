@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginForm = ({setUser}) => {
   const navigate = useNavigate();
@@ -12,26 +14,35 @@ const LoginForm = ({setUser}) => {
   async function handleSubmit(e: { preventDefault: () => void; }) {
     e.preventDefault();
     try {
-      if (!email)
+      if (!email) {
         console.error("You need a email")
-      else if (!password)
+        toast.warning("Missing email");
+      }
+      else if (!password) {
         console.error("You need a password")
+        toast.warning("Missing password");
+      }
       else {
         const response = await axios.post('http://localhost:5000/login', { "email": email, "password": password });  //go to database and see response
-        
+
+        console.log(response);
+
         const { token, user_id } = response.data;
 
         // Store the token in localStorage
         localStorage.setItem('token', token);
         setUser(user_id,email);
-
+        
+        toast.success("Success!")
         // Redirect to home page
         navigate('/home');
-      
+
       }
     } catch (error) {
+      toast("Incorrect Login");
       console.error("login error:", error);
     }
+
   }
 
   return (
@@ -78,6 +89,7 @@ const LoginForm = ({setUser}) => {
                 >
                   Sign in
                 </button>
+                <ToastContainer />
               </div>
               <div className="col-span-full">
                 <Link to="/create"

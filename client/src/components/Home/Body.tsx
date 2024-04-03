@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import { json } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Body = ({ user_id }) => {
@@ -14,18 +16,22 @@ const Body = ({ user_id }) => {
     if (gender === "men") {
       await axios.post('http://localhost:5000/add_fav_male', { "user_id": userId, "product_id": productId })
         .then((response) => {
+          toast.success("Item added to favorites");
           console.log(response);
         })
         .catch((error) => {
+          toast.warning("Something went wrong");
           console.log(error)
         })
     }
     else {
       await axios.post('http://localhost:5000/add_fav_female', { "user_id": userId, "product_id": productId })
         .then((response) => {
+          toast.success("Item added to favorites");
           console.log(response);
         })
         .catch((error) => {
+          toast.warning("Something went wrong");
           console.log(error)
         })
     }
@@ -132,6 +138,7 @@ const Body = ({ user_id }) => {
             ))}
           </div>
         ) : null}
+        <ToastContainer />
       </div>
     </>
   )

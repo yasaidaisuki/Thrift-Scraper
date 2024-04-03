@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CreateForm() {
 
@@ -10,16 +12,24 @@ function CreateForm() {
 
   async function handleSubmit(e: {preventDefault: () => void;}) {
     e.preventDefault(); 
-    if(!email)
+    if(!email) {
+      toast.warning("You need a email")
       console.error("You need a email")
-    else if (!password)
+    }
+    else if (!password) {
+      toast.warning("You need a password")
       console.error("You need a password")
+    }
     else{
+      try {
         const response = await axios.post('http://localhost:5000/createAccount', { "email" : email, "password" :password })
-        .catch((error) =>{
-          console.error(error)
-        })
-        console.log(response)
+        toast.success("Account Created")
+      }
+      catch(error){
+        toast.warning("Something went wrong")
+        console.error(error)
+      }
+        
     }
   }
 
@@ -68,6 +78,7 @@ function CreateForm() {
                 >
                   Create New Account
                 </button>
+                <ToastContainer />
               </div>
               <div className="col-span-full">
               <Link to="/"
