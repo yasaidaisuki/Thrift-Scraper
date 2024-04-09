@@ -20,7 +20,7 @@ const Body = ({ user_id }) => {
           console.log(response);
         })
         .catch((error) => {
-          toast.warning("Something went wrong");
+          toast.warning("Already added");
           console.log(error)
         })
     }

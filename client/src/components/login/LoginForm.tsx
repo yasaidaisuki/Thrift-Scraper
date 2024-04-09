@@ -24,7 +24,7 @@ const LoginForm = ({setUser}) => {
       }
       else {
         const response = await axios.post('http://localhost:5000/login', { "email": email, "password": password });  //go to database and see response
-
+        
         console.log(response);
 
         const { token, user_id } = response.data;
