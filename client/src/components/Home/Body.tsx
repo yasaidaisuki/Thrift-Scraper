@@ -9,7 +9,8 @@ const Body = ({ user_id }) => {
   const [item, setItem] = useState("")
   const [gender, setGender] = useState("")
   const [dataSet, setData] = useState([])
-
+  const [fav, setFav]  = useState(false);
+  
   async function addFavorite(e: { preventDefault: () => void; }, userId: string, productId: number) {
     e.preventDefault();
 
@@ -73,7 +74,7 @@ const Body = ({ user_id }) => {
       .catch((error) => {
         console.error(error)
       })
-
+      
   }
 
   async function getFemaleItems() {
@@ -89,16 +90,33 @@ const Body = ({ user_id }) => {
       })
 
   }
+
+  async function getFavourites(){
+    await axios.post('http://localhost:5000/get_fav_male',{"user_id" :user_id})
+    .then((response) => {
+      const itemData = (response.data).rows
+      console.log(Array.isArray(itemData))
+      setData(itemData)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+
+
+  }
   return (
     <>
       <div className="pl-[18.5%] my-12 grid grid-cols-2">
         <div className="flex">
-          <div className="cursor-pointer max-w-sm w-12 w-24 hover:text-blue-600"
+          <div className="cursor-pointer max-w-sm w-24 hover:text-blue-600"
             onClick={() => { getMaleItems() }}
           >MEN</div>
-          <div className="cursor-pointer max-w-sm hover:text-blue-600"
+          <div className="cursor-pointer max-w-sm w-28 hover:text-blue-600"
             onClick={() => { getFemaleItems() }}
           >WOMEN</div>
+          <div className="cursor-pointer max-w-sm hover:text-blue-600"
+            onClick={() => {getFavourites()}}
+          >FAVOURITES</div>
         </div>
         <div className="ml-48 flex centered-item">
           <form onSubmit={search}>

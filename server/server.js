@@ -20,6 +20,8 @@ app.use("/getMaleItems", require("./routes/getMaleItems"));
 // fav items
 app.use("/add_fav_male", require("./routes/maleFavRoute"));
 app.use("/add_fav_female", require("./routes/femaleFavRoute"));
+app.use("/get_fav_male", require("./routes/get_favorites_m"));
+app.use("/get_fav_female",require("./routes/get_favorites_f"));
 //search items
 app.use("/searchItems", require("./routes/searchItems"));
 
